@@ -27,4 +27,19 @@ public interface ChuyenBayRepository extends JpaRepository<ChuyenBay, String>{
 // 	14
 	@Query(nativeQuery = true, value = "select * from chuyenbay where do_dai < (select tambay from maybay where loai = ?1 )")
 	List<ChuyenBay> findChuyenMayByMB (String loaiMb);
+	
+//	17
+	@Query(nativeQuery = true, value="select cb_di.* from chuyenbay as cb_di, chuyenbay as cb_ve WHERE cb_di.ga_di = cb_ve.ga_den and cb_di.ga_den = cb_ve.ga_di")
+	List<ChuyenBay> findChuyenBay2Chieu();
+	
+//	18
+	@Query(nativeQuery = true, value="select chuyenbay.ga_di ,count(*) from chuyenbay group by(chuyenbay.ga_di)")
+	List<Object> countCBFromGaDi();
+//	19
+	@Query(nativeQuery = true, value="select ga_di, SUM(chi_phi) as total from chuyenbay group by(ga_di)")
+	List<Object> totalPriceByCB();
+//	20
+	@Query(nativeQuery = true, value="select ga_di, COUNT(*) from chuyenbay where gio_di < ?1 group by(ga_di)")
+//	time: 12:00
+	List<Object> totalCBByTime(String time);
 }

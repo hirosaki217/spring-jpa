@@ -14,9 +14,8 @@ import springjpa.springjpa.entity.ChungNhanPK;
 @Repository
 @Transactional
 public interface ChungNhanRepository extends JpaRepository<ChungNhan, ChungNhanPK>{
-//	10
-	List<ChungNhan> findChungNhanByMaMB(String maMB);
+
 //	11
-	@Query(nativeQuery =  true, value="select c.mamb from chungnhan c join nhanvien nv ON c.manv = nv.manv where nv.ten like '?1%'")
+	@Query(nativeQuery =  true, value="select c.mamb from chungnhan c join nhanvien nv ON c.manv = nv.manv where nv.ten like ?1%")
 	List<String> findMaMBByFirstName(String name);
 }
